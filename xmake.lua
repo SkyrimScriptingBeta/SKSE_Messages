@@ -46,7 +46,7 @@ option("use_log_library")
 option_end()
 
 option("use_skyrimscripting_logging")
-    set_description("If true, builds with support for the _Log_ library")
+    set_description("If true, builds with support for the SkyrimScripting.Logging library")
     set_default(false)
 option_end()
 
@@ -85,10 +85,12 @@ if has_config("use_log_library") then
 end
 
 if has_config("use_skyrimscripting_logging") then
-    add_requires("SkyrimScripting.Logging", { configs = { commonlib = "skyrim-commonlib-ae", use_log_library = true }})
+    add_requires("SkyrimScripting.Logging", { configs = { commonlib = "skyrim-commonlib-ae", use_log_library = get_config("use_log_library") }})
 end
 
 add_requires("global_macro_functions")
+
+-- TODO: could be nice for Entrypoint to also _Log_ something when use_log_library is true
 add_requires("SkyrimScripting.Entrypoint", { configs = { commonlib = "skyrim-commonlib-ae" }})
 
 if has_config("commonlib") then
