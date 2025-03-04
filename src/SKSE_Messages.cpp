@@ -1,5 +1,9 @@
 #define _GLOBAL_MACRO_FUNCTIONS_COMPILATION_UNIT_NAME _SkyrimScripting_SKSE_Messages_
 
+#if __has_include(<SkyrimScripting/Logging.h>)
+    #include <SkyrimScripting/Logging.h>
+#endif
+
 #if __has_include(<_Log_.h>)
     #include <_Log_.h>
 #elifndef _Log_

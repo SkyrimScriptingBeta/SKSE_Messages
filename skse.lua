@@ -15,10 +15,6 @@ end
 for _, game_version in ipairs(skyrim_versions) do
     add_requires("skyrim-commonlib-" .. game_version)
     add_requires("SkyrimScripting.Entrypoint", { configs = { commonlib = "skyrim-commonlib-" .. game_version } })
-    add_requires("SkyrimScripting.Logging", { configs = { commonlib = "skyrim-commonlib-ae", use_log_library = true, include_repo_mrowrlib = true }})
-    if has_config("use_log_library") then
-        add_requires("_Log_")
-    end
 end
 
 for _, game_version in ipairs(skyrim_versions) do
@@ -29,9 +25,11 @@ for _, game_version in ipairs(skyrim_versions) do
         add_packages("skyrim-commonlib-" .. game_version)
         add_packages("_Log_", "global_macro_functions", { public = true })
         add_packages("SkyrimScripting.Entrypoint", { public = true })
-        add_packages("SkyrimScripting.Logging", { public = true })
         if has_config("use_log_library") then
             add_packages("_Log_", { public = true })
+        end
+        if has_config("use_skyrimscripting_logging") then
+            add_packages("SkyrimScripting.Logging", { public = true })
         end
 
     target("_SksePlugin-" .. game_version:upper())
@@ -48,5 +46,4 @@ for _, game_version in ipairs(skyrim_versions) do
             email = mod_info.email
         })
         add_deps("StaticLibrary-" .. game_version:upper())
-        add_packages("_Log_")
 end

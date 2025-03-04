@@ -40,6 +40,16 @@ option("build_papyrus_scripts")
     set_default(false)
 option_end()
 
+option("use_log_library")
+    set_description("If true, builds with support for the _Log_ library")
+    set_default(false)
+option_end()
+
+option("use_skyrimscripting_logging")
+    set_description("If true, builds with support for the _Log_ library")
+    set_default(false)
+option_end()
+
 library_name = "SkyrimScripting.SKSE_Messages"
 
 -- Example SKSE plugin using the static library
@@ -70,18 +80,16 @@ if has_config("require_commonlib") then
     add_requires(get_config("commonlib"))
 end
 
-option("use_log_library")
-    set_description("If true, builds with support for the _Log_ library")
-    set_default(false)
-option_end()
-
 if has_config("use_log_library") then
     add_requires("_Log_")
 end
 
+if has_config("use_skyrimscripting_logging") then
+    add_requires("SkyrimScripting.Logging", { configs = { commonlib = "skyrim-commonlib-ae", use_log_library = true }})
+end
+
 add_requires("global_macro_functions")
 add_requires("SkyrimScripting.Entrypoint", { configs = { commonlib = "skyrim-commonlib-ae" }})
-add_requires("SkyrimScripting.Logging", { configs = { commonlib = "skyrim-commonlib-ae", use_log_library = true, include_repo_mrowrlib = true }})
 
 if has_config("commonlib") then
     print("Building using CommonLib package: " .. get_config("commonlib"))
@@ -95,9 +103,11 @@ if has_config("commonlib") then
         end
         add_packages("global_macro_functions", { public = true })
         add_packages("SkyrimScripting.Entrypoint", { public = true })
-        add_packages("SkyrimScripting.Logging", { public = true })
         if has_config("use_log_library") then
             add_packages("_Log_", { public = true })
+        end
+        if has_config("use_skyrimscripting_logging") then
+            add_packages("SkyrimScripting.Logging", { public = true })
         end
 end
 
