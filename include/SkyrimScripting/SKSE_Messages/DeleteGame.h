@@ -1,0 +1,16 @@
+#pragma once
+
+#define _GLOBAL_MACRO_FUNCTIONS_COMPILATION_UNIT_NAME _SkyrimScripting_SKSEMessages_
+
+#include <global_macro_functions.h>
+
+#include "Internal/MessageCallbacks.h"  // IWYU pragma: export
+
+#define __SKSEMessages_OnDeleteGame__(scopeSymbol)                                                                                        \
+    _GLOBAL_MACRO_FUNCTIONS_REGISTER_NEW_NAMED_FUNCTION_WITH_ARGUMENTS(                                                                   \
+        scopeSymbol, SkyrimScripting::SKSE_Messages::Internal::MessageCallbacks::GetSingleton().RegisterForOnDeleteGame, std::string_view \
+    )
+
+#define _OnDeleteGame_ __SKSEMessages_OnDeleteGame__(DEFAULT)
+
+#define _OnDeleteGame__ _OnDeleteGame_(std::string_view __fileName)

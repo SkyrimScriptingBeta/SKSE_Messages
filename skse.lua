@@ -14,6 +14,9 @@ end
 
 for _, game_version in ipairs(skyrim_versions) do
     add_requires("skyrim-commonlib-" .. game_version)
+    add_requires("SkyrimScripting.Entrypoint", { configs = { commonlib = "skyrim-commonlib-" .. game_version } })
+    add_requires("SkyrimScripting.Logging", { configs = { commonlib = "skyrim-commonlib-ae", use_log_library = true, include_repo_mrowrlib = true }})
+    add_requires("_Log_")
 end
 
 for _, game_version in ipairs(skyrim_versions) do
@@ -22,6 +25,10 @@ for _, game_version in ipairs(skyrim_versions) do
         add_files("src/*.cpp")
         add_includedirs("include", { public = true }) -- Your library's own include path
         add_packages("skyrim-commonlib-" .. game_version)
+        add_packages("_Log_", "global_macro_functions", { public = true })
+        add_packages("SkyrimScripting.Entrypoint", { public = true })
+        add_packages("SkyrimScripting.Logging", { public = true })
+        add_packages("_Log_")
 
     target("_SksePlugin-" .. game_version:upper())
         set_basename(mod_info.name .. "-" .. game_version:upper())
@@ -37,4 +44,5 @@ for _, game_version in ipairs(skyrim_versions) do
             email = mod_info.email
         })
         add_deps("StaticLibrary-" .. game_version:upper())
+        add_packages("_Log_")
 end

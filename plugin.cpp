@@ -1,17 +1,24 @@
-#include <MyStaticLibrary.h>
-#include <RE/Skyrim.h>
-#include <SKSE/SKSE.h>
+#include <SkyrimScripting/Entrypoint.h>
+#include <SkyrimScripting/Logging.h>
+#include <SkyrimScripting/SKSE_Messages.h>
 
-extern "C" __declspec(dllexport) bool SKSEPlugin_Load(const SKSE::LoadInterface* a_skse) {
-    SKSE::Init(a_skse);
+_SKSEPlugin_Init_ { SKSE::log::info("Plugin loaded!"); }
 
-    SKSE::GetMessagingInterface()->RegisterListener(
-        "SKSE",
-        [](SKSE::MessagingInterface::Message* a_msg) {
-            if (a_msg->type == SKSE::MessagingInterface::kDataLoaded)
-                MyStaticLibrary().PrintSomethingInConsole();
-        }
-    );
+_OnPostLoad_ { SKSE::log::info("Post load!"); }
+_OnPostPostLoad_ { SKSE::log::info("Post post load!"); }
 
-    return true;
+_OnDataLoaded_ {
+    SKSE::log::info("Data loaded! hello?");
+    PrintToConsole("Data loaded!");
+    SKSE::log::info("Data loaded! from SKSE::log");
+}
+
+_OnInputLoaded_ { SKSE::log::info("Input loaded!"); }
+
+_OnNewGame__ { SKSE::log::info("New game started!"); }
+_OnSaveGame__ { SKSE::log::info("Game saved!"); }
+_OnDeleteGame__ { SKSE::log::info("Game deleted!"); }
+
+_OnPreLoadGame__ {
+    SKSE::log::info("Pre load game!");
 }
