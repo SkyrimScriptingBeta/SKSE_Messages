@@ -1,7 +1,5 @@
 #pragma once
 
-#define _GLOBAL_MACRO_FUNCTIONS_COMPILATION_UNIT_NAME _SkyrimScripting_SKSEMessages_
-
 #include <SKSE/SKSE.h>  // IWYU pragma: keep
 #include <global_macro_functions.h>
 
