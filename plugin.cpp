@@ -13,6 +13,11 @@ SKSEPlugin_OnDataLoaded { SKSE::log::info("Data loaded"); }
 SKSEPlugin_OnDeleteGame { SKSE::log::info("Game deleted"); }
 SKSEPlugin_OnDeleteGame_WithFilename(std::string_view a_filename) { SKSE::log::info("Game deleted: {}", a_filename); }
 
+SKSEPlugin_OnInputLoaded { SKSE::log::info("Input loaded"); }
+
+SKSEPlugin_OnNewGame { SKSE::log::info("New game started"); }
+SKSEPlugin_OnNewGame_WithQuest(RE::TESQuest* a_quest) { SKSE::log::info("New game started: {}", a_quest->GetName()); }
+
 // TODO: rename all of these :)
 //
 // But first get it building again :)
