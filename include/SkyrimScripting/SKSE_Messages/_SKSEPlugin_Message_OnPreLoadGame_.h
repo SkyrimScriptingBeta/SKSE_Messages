@@ -9,6 +9,6 @@
         scopeSymbol, SkyrimScripting::SKSE_Messages::MessageCallbacks::GetSingleton().RegisterForOnPreLoadGame, std::string_view \
     )
 
-#define _OnPreLoadGame_ _SKSEPlugin_Message_OnPreLoadGame_(DEFAULT)
+#define SKSEPlugin_OnPreLoadGame _SKSEPlugin_Message_OnPreLoadGame_(DEFAULT)(std::string_view _sksePlugin_onPreLoadGame_filename_)
 
-#define _OnPreLoadGame__ _OnPreLoadGame_(std::string_view __fileName)
+#define SKSEPlugin_OnPreLoadGame_WithFilename _SKSEPlugin_Message_OnPreLoadGame_(DEFAULT)

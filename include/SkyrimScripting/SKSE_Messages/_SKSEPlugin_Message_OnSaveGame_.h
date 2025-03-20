@@ -9,6 +9,6 @@
         scopeSymbol, SkyrimScripting::SKSE_Messages::MessageCallbacks::GetSingleton().RegisterForOnSaveGame, std::string_view \
     )
 
-#define _OnSaveGame_ _SKSEPlugin_Message_OnSaveGame_(DEFAULT)
+#define SKSEPlugin_OnSaveGame _SKSEPlugin_Message_OnSaveGame_(DEFAULT)(std::string_view __fileName)
 
-#define _OnSaveGame__ _OnSaveGame_(std::string_view __fileName)
+#define SKSEPlugin_OnSaveGame_WithFilename _OnSaveGame__(std::string_view __fileName)

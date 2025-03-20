@@ -9,6 +9,6 @@
         scopeSymbol, SkyrimScripting::SKSE_Messages::MessageCallbacks::GetSingleton().RegisterForOnPostLoadGame, bool \
     )
 
-#define _OnPostLoadGame_ _SKSEPlugin_Message_OnPostLoadGame_(DEFAULT)
+#define SKSEPlugin_OnPostLoadGame _SKSEPlugin_Message_OnPostLoadGame_(DEFAULT)(bool __success)
 
-#define _OnPostLoadGame__ _OnPostLoadGame_(bool __success)
+#define SKSEPlugin_OnPostLoadGame_WithSuccess _SKSEPlugin_Message_OnPostLoadGame_(DEFAULT)
