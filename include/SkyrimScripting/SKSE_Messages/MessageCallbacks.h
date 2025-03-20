@@ -9,16 +9,16 @@
 namespace SkyrimScripting::SKSE_Messages {
 
     class MessageCallbacks {
-        std::vector<std::function<void(std::string_view, SKSE::MessagingInterface::Message*)>> _onMessage_Callbacks;
-        std::vector<std::function<void()>>                                                     _onPostLoad_Callbacks;
-        std::vector<std::function<void()>>                                                     _onPostPostLoad_Callbacks;
-        std::vector<std::function<void(std::string_view)>>                                     _onPreLoadGame_Callbacks;
-        std::vector<std::function<void(bool)>>                                                 _onPostLoadGame_Callbacks;
-        std::vector<std::function<void(std::string_view)>>                                     _onSaveGame_Callbacks;
-        std::vector<std::function<void(std::string_view)>>                                     _onDeleteGame_Callbacks;
-        std::vector<std::function<void(RE::TESQuest*)>>                                        _onNewGame_Callbacks;
-        std::vector<std::function<void()>>                                                     _onInputLoaded_Callbacks;
-        std::vector<std::function<void()>>                                                     _onDataLoaded_Callbacks;
+        std::vector<std::function<void(SKSE::MessagingInterface::Message*)>> _onMessage_Callbacks;
+        std::vector<std::function<void()>>                                   _onPostLoad_Callbacks;
+        std::vector<std::function<void()>>                                   _onPostPostLoad_Callbacks;
+        std::vector<std::function<void(std::string_view)>>                   _onPreLoadGame_Callbacks;
+        std::vector<std::function<void(bool)>>                               _onPostLoadGame_Callbacks;
+        std::vector<std::function<void(std::string_view)>>                   _onSaveGame_Callbacks;
+        std::vector<std::function<void(std::string_view)>>                   _onDeleteGame_Callbacks;
+        std::vector<std::function<void(RE::TESQuest*)>>                      _onNewGame_Callbacks;
+        std::vector<std::function<void()>>                                   _onInputLoaded_Callbacks;
+        std::vector<std::function<void()>>                                   _onDataLoaded_Callbacks;
 
         std::string_view MessageDataAsStringView(SKSE::MessagingInterface::Message* message);
 
@@ -27,8 +27,9 @@ namespace SkyrimScripting::SKSE_Messages {
 
         static MessageCallbacks& GetSingleton();
 
-        void HandleMessage(const char* sender, SKSE::MessagingInterface::Message* message);
-        void RegisterForOnMessage(std::function<void(std::string_view, SKSE::MessagingInterface::Message*)> callback);
+        void HandleMessage(SKSE::MessagingInterface::Message* message);
+        void HandleSkseMessage(SKSE::MessagingInterface::Message* message);
+        void RegisterForOnMessage(std::function<void(SKSE::MessagingInterface::Message*)> callback);
         void RegisterForOnPostLoad(std::function<void()> callback);
         void RegisterForOnPostPostLoad(std::function<void()> callback);
         void RegisterForOnPreLoadGame(std::function<void(std::string_view)> callback);

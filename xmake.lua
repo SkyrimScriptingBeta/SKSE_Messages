@@ -44,7 +44,29 @@ end
 
 commonlib_version = get_config("commonlib"):match("skyrim%-commonlib%-(.*)")
 
-target("_SksePlugin")
+target("_SksePlugin 1")
+    set_basename(mod_info.name .. "-" .. commonlib_version)
+    add_files("*.cpp")
+    add_rules("@" .. get_config("commonlib") .. "/plugin", {
+        mod_name = mod_info.name .. " (" .. commonlib_version .. ")",
+        mods_folders = mod_info.mods_folders or "",
+        mod_files = mod_info.mod_files,
+        name = mod_info.name,
+        version = mod_info.version,
+        author = mod_info.author,
+        email = mod_info.email
+    })
+    add_deps(library_name)
+
+mod_info = { name = "Z SECOND Test plugin for " .. library_name }
+
+if mods_folders then
+    mod_info.mods_folders = mods_folders
+else
+    print("SKYRIM_MODS_FOLDERS environment variable not set")
+end
+
+target("_SksePlugin 2")
     set_basename(mod_info.name .. "-" .. commonlib_version)
     add_files("*.cpp")
     add_rules("@" .. get_config("commonlib") .. "/plugin", {
