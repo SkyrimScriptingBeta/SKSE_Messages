@@ -4,8 +4,6 @@
 
 #include "MessageCallbacks.h"  // IWYU pragma: export
 
-#define __SKSEMessages_OnDataLoaded__(scopeSymbol)                                                                                                             \
+#define _SKSEPlugin_Message_OnDataLoaded_(scopeSymbol)                                                                                                         \
     _GLOBAL_MACRO_FUNCTIONS_REGISTER_NEW_NAMED_FUNCTION(scopeSymbol, SkyrimScripting::SKSE_Messages::MessageCallbacks::GetSingleton().RegisterForOnDataLoaded) \
     ()
-
-#define _OnDataLoaded_ __SKSEMessages_OnDataLoaded__(DEFAULT)

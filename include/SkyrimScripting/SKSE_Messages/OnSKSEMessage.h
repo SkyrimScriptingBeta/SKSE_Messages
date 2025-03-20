@@ -4,7 +4,7 @@
 
 #include "MessageCallbacks.h"  // IWYU pragma: export
 
-#define __SKSEMessages_OnMessage__(scopeSymbol) \
+#define _SKSEPlugin_Message_OnMessage_(scopeSymbol) \
     _GLOBAL_MACRO_FUNCTIONS_REGISTER_NEW_NAMED_FUNCTION_WITH_ARGUMENTS(scopeSymbol, SkyrimScripting::SKSE_Messages::MessageCallbacks::GetSingleton().RegisterForOnMessage, std::string_view, SKSE::MessagingInterface::Message*)
 
-#define _OnMessage_ __SKSEMessages_OnMessage__(DEFAULT)
+#define _OnMessage_ _SKSEPlugin_Message_OnMessage_(DEFAULT)

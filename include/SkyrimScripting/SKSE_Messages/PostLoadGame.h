@@ -4,11 +4,11 @@
 
 #include "MessageCallbacks.h"  // IWYU pragma: export
 
-#define __SKSEMessages_OnPostLoadGame__(scopeSymbol)                                                                  \
+#define _SKSEPlugin_Message_OnPostLoadGame_(scopeSymbol)                                                              \
     _GLOBAL_MACRO_FUNCTIONS_REGISTER_NEW_NAMED_FUNCTION_WITH_ARGUMENTS(                                               \
         scopeSymbol, SkyrimScripting::SKSE_Messages::MessageCallbacks::GetSingleton().RegisterForOnPostLoadGame, bool \
     )
 
-#define _OnPostLoadGame_ __SKSEMessages_OnPostLoadGame__(DEFAULT)
+#define _OnPostLoadGame_ _SKSEPlugin_Message_OnPostLoadGame_(DEFAULT)
 
 #define _OnPostLoadGame__ _OnPostLoadGame_(bool __success)
