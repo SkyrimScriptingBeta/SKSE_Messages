@@ -6,7 +6,7 @@
 #include <string_view>
 #include <vector>
 
-namespace SkyrimScripting::SKSE_Messages::Internal {
+namespace SkyrimScripting::SKSE_Messages {
 
     class MessageCallbacks {
         std::vector<std::function<void(std::string_view, SKSE::MessagingInterface::Message*)>> _onMessage_Callbacks;

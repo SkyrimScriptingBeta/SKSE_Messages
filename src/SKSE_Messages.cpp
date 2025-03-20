@@ -1,12 +1,12 @@
-#if __has_include(<_Log_.h>)
-    #include <_Log_.h>
-#elifndef _Log_
-    #define _Log_(...)
-#endif
+#include "SkyrimScripting/SKSE_Messages/MessageCallbacks.h"
 
-#include "SkyrimScripting/SKSE_Messages/Internal/MessageCallbacks.h"
+namespace SkyrimScripting::SKSE_Messages {
 
-namespace SkyrimScripting::SKSE_Messages::Internal {
+    void ListenForSkseMessages() {
+        SKSE::GetMessagingInterface()->RegisterListener(SKSE_Messages::MessageCallbacks::SKSE_SENDER, [](SKSE::MessagingInterface::Message* message) {
+            SKSE_Messages::MessageCallbacks::GetSingleton().HandleMessage(SKSE_Messages::MessageCallbacks::SKSE_SENDER, message);
+        });
+    }
 
     std::string_view MessageCallbacks::MessageDataAsStringView(SKSE::MessagingInterface::Message* message) { return {static_cast<char*>(message->data), message->dataLen}; }
 
@@ -20,53 +20,53 @@ namespace SkyrimScripting::SKSE_Messages::Internal {
         if (strcmp(sender, SKSE_SENDER) == 0) {
             switch (message->type) {
                 case SKSE::MessagingInterface::kPostLoad:
-                    _Log_("Running post-load callbacks");
+                    SKSE::log::trace("Running post-load callbacks");
                     for (auto& callback : _onPostLoad_Callbacks) callback();
                     break;
                 case SKSE::MessagingInterface::kPostPostLoad:
-                    _Log_("Running post-post-load callbacks");
+                    SKSE::log::trace("Running post-post-load callbacks");
                     for (auto& callback : _onPostPostLoad_Callbacks) callback();
                     break;
                 case SKSE::MessagingInterface::kPreLoadGame: {
-                    _Log_("Running pre-load-game callbacks");
+                    SKSE::log::trace("Running pre-load-game callbacks");
                     auto path = MessageDataAsStringView(message);
                     for (auto& callback : _onPreLoadGame_Callbacks) callback(path);
                     break;
                 }
                 case SKSE::MessagingInterface::kPostLoadGame: {
-                    _Log_("Running post-load-game callbacks");
+                    SKSE::log::trace("Running post-load-game callbacks");
                     auto success = static_cast<bool>(reinterpret_cast<uintptr_t>(message->data));
                     for (auto& callback : _onPostLoadGame_Callbacks) callback(success);
                     break;
                 }
                 case SKSE::MessagingInterface::kSaveGame: {
-                    _Log_("Running save-game callbacks");
+                    SKSE::log::trace("Running save-game callbacks");
                     auto path = MessageDataAsStringView(message);
                     for (auto& callback : _onSaveGame_Callbacks) callback(path);
                     break;
                 }
                 case SKSE::MessagingInterface::kDeleteGame: {
-                    _Log_("Running delete-game callbacks");
+                    SKSE::log::trace("Running delete-game callbacks");
                     auto path = MessageDataAsStringView(message);
                     for (auto& callback : _onDeleteGame_Callbacks) callback(path);
                     break;
                 }
                 case SKSE::MessagingInterface::kNewGame: {
-                    _Log_("Running new-game callbacks");
+                    SKSE::log::trace("Running new-game callbacks");
                     auto quest = static_cast<RE::TESQuest*>(message->data);
                     for (auto& callback : _onNewGame_Callbacks) callback(quest);
                     break;
                 }
                 case SKSE::MessagingInterface::kInputLoaded:
-                    _Log_("Running input-loaded callbacks");
+                    SKSE::log::trace("Running input-loaded callbacks");
                     for (auto& callback : _onInputLoaded_Callbacks) callback();
                     break;
                 case SKSE::MessagingInterface::kDataLoaded:
-                    _Log_("Running data-loaded callbacks");
+                    SKSE::log::trace("Running data-loaded callbacks");
                     for (auto& callback : _onDataLoaded_Callbacks) callback();
                     break;
                 default:
-                    _Log_("SKSE message type not handled: {}", message->type);
+                    SKSE::log::trace("SKSE message type not handled: {}", message->type);
                     break;
             }
         }

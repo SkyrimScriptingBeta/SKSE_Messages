@@ -1,4 +1,18 @@
+#include <RE/Skyrim.h>
+#include <SKSE/SKSE.h>
 #include <SkyrimScripting/SKSE_Messages.h>
+
+extern "C" __declspec(dllexport) bool SKSEPlugin_Load(const SKSE::LoadInterface* a_skse) {
+    SKSE::Init(a_skse);
+
+    SkyrimScripting::SKSE_Messages::ListenForSkseMessages();
+
+    return true;
+}
+
+// TODO: rename all of these :)
+//
+// But first get it building again :)
 
 _OnPostLoad_ { SKSE::log::info("Post load!"); }
 _OnPostPostLoad_ { SKSE::log::info("Post post load!"); }
