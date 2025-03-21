@@ -14,7 +14,7 @@ if not has_config("commonlib") then
     return
 end
 
-if has_config("build_example") then
+if get_config("build_example") then
     add_repositories("SkyrimScripting https://github.com/SkyrimScripting/Packages.git")
     add_repositories("MrowrLib        https://github.com/MrowrLib/Packages.git")
 end
