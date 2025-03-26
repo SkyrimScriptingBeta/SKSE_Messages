@@ -1,5 +1,5 @@
 #pragma once
 
-#include "_SKSEPlugin_Message_OnInputLoaded_.h"
+#include "_SKSEPlugin_OnInputLoaded_.h"
 
-#define SKSEPlugin_OnInputLoaded _SKSEPlugin_Message_OnInputLoaded_(DEFAULT)
+#define SKSEPlugin_OnInputLoaded _SKSEPlugin_OnInputLoaded_(DEFAULT)

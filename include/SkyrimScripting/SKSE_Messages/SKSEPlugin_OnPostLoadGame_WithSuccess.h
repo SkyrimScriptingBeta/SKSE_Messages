@@ -1,5 +1,5 @@
 #pragma once
 
-#include "_SKSEPlugin_Message_OnPostLoadGame_.h"
+#include "_SKSEPlugin_OnPostLoadGame_.h"
 
-#define SKSEPlugin_OnPostLoadGame_WithSuccess _SKSEPlugin_Message_OnPostLoadGame_(DEFAULT)
+#define SKSEPlugin_OnPostLoadGame_WithSuccess _SKSEPlugin_OnPostLoadGame_(DEFAULT)
